@@ -1,10 +1,10 @@
 {
-  "name": "frontend",
+  "name": "gyukaku-websystem-frontend",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "react-router build",
-    "dev": "react-router dev",
+    "dev": "react-router dev --port 3000 --host 0.0.0.0",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc"
   },
