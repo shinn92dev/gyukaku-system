@@ -1,0 +1,9 @@
+**/node_modules
+**/vendor
+**/.env
+**/.env.local
+**/.env.*.local
+**/storage/*.key
+**/storage/logs/*
+**/public/build
+.DS_Store
