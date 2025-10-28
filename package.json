@@ -3,8 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "pnpm -r --parallel dev",
-    "dev:frontend": "pnpm --filter frontend dev",
-    "dev:backend": "pnpm --filter backend dev",
+    "dev:frontend": "pnpm -C frontend dev",
+    "dev:backend": "pnpm -C backend dev",
     "build": "pnpm --filter frontend build",
     "prepare": "husky",
     "pre-commit": "lint-staged"
