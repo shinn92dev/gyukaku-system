@@ -8,9 +8,11 @@ use Illuminate\Http\Request;
 class TestController extends Controller
 {
     /**
-     * Handle the incoming request.
+     * Test if API is working
+     *
+     * @return array{status: string}
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): array
     {
         return ['status' => 'working'];
     }

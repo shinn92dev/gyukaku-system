@@ -1,8 +1,10 @@
-includes:
-  - vendor/nunomaduro/larastan/extension.neon
-
 parameters:
+  level: 7
   paths:
     - app
-  level: 5
-  checkMissingIterableValueType: false
+    - database
+  tmpDir: var/phpstan
+
+  checkMissingTypehints: true
+  treatPhpDocTypesAsCertain: false
+  reportUnmatchedIgnoredErrors: true
