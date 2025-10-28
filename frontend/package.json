@@ -8,7 +8,7 @@
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
     "prettier": "prettier .",
-    "eslint": "eslint ."
+    "lint": "eslint ."
   },
   "dependencies": {
     "@react-router/node": "^7.9.2",
