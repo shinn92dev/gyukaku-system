@@ -83,6 +83,25 @@ Then follow the prompts:
 - Enter a short title (commit message)
 - Optionally, add a longer description
 
+## 1-5. Enable Husky (pre-commit hook)
+
+Husky is used to automatically format and lint your code before each commit.
+
+This ensures that only clean, validated code is pushed to the repository.
+
+After cloning the project and installing dependencies, run the following command once:
+```bash
+chmod +x .husky/pre-commit
+```
+This will make the pre-commit hook executable.
+Then, every time you run, Husky will:
+
+1. Run Prettier & ESLint (frontend)
+2. Run Laravel Pint (backend)
+3. Block commits if there are any formatting or linting errors
+
+✅ This guarantees consistent code style across all team members.
+
 ---
 
 ## 2. Monorepo Structure
