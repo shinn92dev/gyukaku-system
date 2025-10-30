@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1 Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2 Setup Node.js (v24)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      # 3 Setup pnpm (v10)
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      # 4 Cache pnpm store
+      - name: Get pnpm store path
+        id: pnpm-cache
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      # 5 Setup PHP (v8.4) and Composer
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.4
+          tools: composer
+
+      # 6 Install dependencies
+      - name: Install dependencies
+        run: |
+          pnpm install -w
+          pnpm -C frontend install
+          cd backend && composer install --no-interaction --prefer-dist --no-progress
+
+      # 7 Lint frontend
+      - name: Lint frontend (ESLint)
+        run: pnpm -C frontend lint
+
+      # 8 Typecheck frontend (TS)
+      - name: Typecheck frontend
+        run: pnpm -C frontend typecheck
+
+      # 9 Lint backend (Pint)
+      - name: Lint backend (Pint)
+        run: |
+          cd backend
+          vendor/bin/pint --test
+
+      # 10 Static analysis (PHPStan)
+      - name: PHPStan
+        run: |
+          cd backend
+          vendor/bin/phpstan analyse --no-progress
+
+      # 11 Build frontend (optional)
+      - name: Build frontend
+        run: pnpm -C frontend build

@@ -3,8 +3,23 @@
   "private": true,
   "scripts": {
     "dev": "pnpm -r --parallel dev",
-    "dev:frontend": "pnpm --filter frontend dev",
-    "dev:backend": "pnpm --filter backend dev",
-    "build": "pnpm --filter frontend build"
+    "dev:frontend": "pnpm -C frontend dev",
+    "dev:backend": "pnpm -C backend dev",
+    "build": "pnpm --filter frontend build",
+    "prepare": "husky",
+    "pre-commit": "lint-staged"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.6"
+  },
+  "lint-staged": {
+    "frontend/**/*.{ts,tsx,js,jsx,json,css,scss,md}": [
+      "pnpm -C frontend prettier --write",
+      "pnpm -C frontend lint --fix"
+    ],
+    "backend/**/*.php": [
+      "bash -lc 'test -x backend/vendor/bin/pint && (cd backend && vendor/bin/pint -q) || echo \"pint not installed, skipping\"'"
+    ]
   }
 }
