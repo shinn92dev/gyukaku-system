@@ -8,7 +8,18 @@ use App\Http\Controllers\Controller;
 class TestController extends Controller
 {
     /**
-     * Handle the incoming request.
+     * @OA\Get(
+     *     path="/api/test",
+     *     tags={"Test"},
+     *     summary="Test endpoint to verify API is working",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="working")
+     *         )
+     *     )
+     * )
      */
     public function __invoke(Request $request)
     {
