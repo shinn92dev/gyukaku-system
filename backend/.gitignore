@@ -19,7 +19,10 @@
 /storage/*.key
 /storage/api-docs
 /storage/pail
+/storage/api-docs/
 /vendor
 Homestead.json
 Homestead.yaml
 Thumbs.db
+/var/phpstan/
+/storage/phpstan/

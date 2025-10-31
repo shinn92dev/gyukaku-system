@@ -1,0 +1,10 @@
+parameters:
+  level: 7
+  paths:
+    - app
+    - database
+  tmpDir: var/phpstan
+
+  checkMissingTypehints: true
+  treatPhpDocTypesAsCertain: false
+  reportUnmatchedIgnoredErrors: true

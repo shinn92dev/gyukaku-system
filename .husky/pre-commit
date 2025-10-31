@@ -1,0 +1,2 @@
+pnpm lint-staged
+php -l $(git diff --cached --name-only --diff-filter=ACM | grep "^backend/.*\.php$" || true) >/dev/null
