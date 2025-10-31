@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50)->unique(); // host, kitchen
+            $table->string('code', 3)->unique(); // hst, ktc
             $table->string('display_name', 50)->unique(); // Host/Hostess, Kitchen Staff
             $table->timestamps();
         });
