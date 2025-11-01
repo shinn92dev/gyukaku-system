@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
         // $kitchenRole = Role::where('code', 'ktc')->first();
         // $dishwasherRole = Role::where('code', 'dsh')->first();
         $hostRole = Role::where('code', 'hst')->first();
-        
+
         // admin
         $admin = User::firstOrCreate(
             ['email' => 'admin@gyukaku.com'],

@@ -5,7 +5,7 @@ namespace App\OpenApi\Schemas;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    schema: 'Role', // ← #/components/schemas/Role 
+    schema: 'Role', // ← #/components/schemas/Role
     properties: [
         new OA\Property(property: 'id', type: 'integer', example: '1'),
         new OA\Property(property: 'code', type: 'string', example: 'svr'),

@@ -5,7 +5,7 @@ namespace App\OpenApi\Schemas;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    schema: 'User', // ← #/components/schemas/User 
+    schema: 'User', // ← #/components/schemas/User
     properties: [
         new OA\Property(property: 'id', type: 'integer', example: 1),
         new OA\Property(property: 'email', type: 'string', example: 'user@example.com'),

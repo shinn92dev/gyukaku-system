@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
-use OpenApi\Attributes as OA;
-use App\OpenApi\Schemas\RoleSchema;
-use App\OpenApi\Schemas\UserSchema;
-use App\Http\Controllers\Controller;
-
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\RegisterRequest;
+use OpenApi\Attributes as OA;
 
 class AuthController extends Controller
 {
@@ -23,10 +19,10 @@ class AuthController extends Controller
                 new OA\Property(property: 'username', type: 'string', example: 'VC1234'),
                 new OA\Property(property: 'password', type: 'string', example: 'password123'),
             ]
-        )
+        ),
     ])]
     #[OA\Response(
-        response: 200, 
+        response: 200,
         description: 'Login Success - returns user data and authentication token',
         content: new OA\JsonContent(
             properties: [
@@ -40,7 +36,7 @@ class AuthController extends Controller
         description: 'Invalid credentials.',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Invalid credentials')
+                new OA\Property(property: 'message', type: 'string', example: 'Invalid credentials'),
             ]
         )
     )]
@@ -57,7 +53,7 @@ class AuthController extends Controller
         // Check if user exists and password matches
         if (!$user || !Hash::check($credentials['password'], $user->password)) {
             return response()->json([
-                'message' => 'Invalid credentials.'
+                'message' => 'Invalid credentials.',
             ], 401);
         }
 
@@ -74,7 +70,7 @@ class AuthController extends Controller
         path: '/register',
         tags: ['Authentication'],
         summary: 'Register new user',
-        security: [['bearerAuth' => []]], 
+        security: [['bearerAuth' => []]],
     )]
     #[OA\RequestBody(required: true, description: 'register', content: [
         new OA\JsonContent(
@@ -90,16 +86,16 @@ class AuthController extends Controller
                 new OA\Property(property: 'date_of_birth', type: 'string', format: 'date', example: '1998-01-25'),
                 new OA\Property(property: 'hire_date', type: 'string', format: 'date', example: '2025-10-30'),
                 new OA\Property(
-                    property: 'role_ids', 
+                    property: 'role_ids',
                     type: 'array',
                     items: new OA\Items(type: 'integer'),
                     example: [1, 3],
-                )
+                ),
             ]
-        )
+        ),
     ])]
     #[OA\Response(
-        response: 201, 
+        response: 201,
         description: 'Registration Success - returns the new user data',
         content: new OA\JsonContent(
             properties: [
@@ -190,7 +186,7 @@ class AuthController extends Controller
             ]
         )
     )]
-    public function logout(Request $request) 
+    public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
 
