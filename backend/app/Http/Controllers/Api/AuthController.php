@@ -15,7 +15,7 @@ use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
 {
-    #[OA\Post(path: '/api/login', tags: ['Authentication'], summary: 'Login an existing user')]
+    #[OA\Post(path: '/login', tags: ['Authentication'], summary: 'Login an existing user')]
     #[OA\RequestBody(required: true, description: 'login', content: [
         new OA\JsonContent(
             required: ['username', 'password'],
@@ -71,7 +71,7 @@ class AuthController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/register',
+        path: '/register',
         tags: ['Authentication'],
         summary: 'Register new user',
         security: [['bearerAuth' => []]], 
@@ -167,7 +167,7 @@ class AuthController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/logout',
+        path: '/logout',
         tags: ['Authentication'],
         summary: 'Logout user from all devices',
         security: [['bearerAuth' => []]],

@@ -13,7 +13,7 @@ class UserController extends Controller
      * Display a listing of the resource.
      */
     #[OA\Get(
-        path: '/api/users',
+        path: '/users',
         tags: ['Users'],
         summary: 'Get all users with their roles',
         security: [['bearerAuth' => []]]
