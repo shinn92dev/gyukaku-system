@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use OpenApi\Attributes as OA;
@@ -40,7 +41,7 @@ class AuthController extends Controller
             ]
         )
     )]
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
         $credentials = $request->validate([
             'username' => 'required',
@@ -139,7 +140,7 @@ class AuthController extends Controller
             ]
         )
     )]
-    public function register(RegisterRequest $request) // TODO:: only authorize admins to register new users
+    public function register(RegisterRequest $request): JsonResponse // TODO:: only authorize admins to register new users
     {
         $validated = $request->validated();
 
@@ -186,7 +187,7 @@ class AuthController extends Controller
             ]
         )
     )]
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
         $request->user()->tokens()->delete();
 
