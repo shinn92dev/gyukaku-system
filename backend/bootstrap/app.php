@@ -1,8 +1,11 @@
 <?php
 
+use Illuminate\Support\Str;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -26,6 +29,27 @@ return Application::configure(basePath: dirname(__DIR__))
                 return response()->json([
                     'message' => 'Unauthenticated.',
                 ], 401);
+            }
+        });
+
+        // For Model not found (covers findOrFail() & route-model binding)
+        $exceptions->render(function (ModelNotFoundException $e, $request) {
+            if ($request->expectsJson()) {
+                $model = class_basename($e->getModel());
+                $resource = Str::snake($model, ' ');
+
+                return response()->json([
+                    'message'=> ucfirst($resource) . ' not found',
+                ], 404);
+            }
+        });
+
+        // Fallback 404 (bad route, wrong URL, etc)
+        $exceptions->render(function (NotFoundHttpException $e, $request) {
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'message' => 'Resource not found',
+                ], 404);
             }
         });
     })->create();
