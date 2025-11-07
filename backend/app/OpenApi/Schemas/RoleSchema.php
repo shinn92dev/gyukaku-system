@@ -7,7 +7,7 @@ use OpenApi\Attributes as OA;
 #[OA\Schema(
     schema: 'Role', // ← #/components/schemas/Role
     properties: [
-        new OA\Property(property: 'id', type: 'integer', example: '1'),
+        new OA\Property(property: 'id', type: 'integer', example: 1),
         new OA\Property(property: 'code', type: 'string', example: 'svr'),
         new OA\Property(property: 'display_name', type: 'string', example: 'Server'),
         new OA\Property(property: 'created_at', type: 'string', format: 'date-time', example: '2024-01-01T00:00:00Z'),
