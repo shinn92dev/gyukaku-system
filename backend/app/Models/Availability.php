@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Availability extends Model
 {
     protected $fillable = [
-        'user_id', 'work_date', 'lunch', 'dinner', 'special_requests',
+        'availability_submission_id', 'work_date', 'lunch', 'dinner',
     ];
 
-    public function user(): BelongsTo 
+    public function availabilitySubmission(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(AvailabilitySubmission::class);
     }
 }
