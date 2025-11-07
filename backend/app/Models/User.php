@@ -66,8 +66,8 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
-    public function availabilities(): HasMany
+    public function availabilitySubmissions(): HasMany
     {
-        return $this->hasMany(Availability::class);
+        return $this->hasMany(AvailabilitySubmission::class);
     }
 }
