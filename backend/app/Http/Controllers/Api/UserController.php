@@ -107,13 +107,7 @@ class UserController extends Controller
     )]
     public function show(string $id): JsonResponse
     {
-        $user = User::with('roles')->find($id);
-
-        if (!$user) {
-            return response()->json([
-                'message' => 'User not found'
-            ], 404);
-        }
+        $user = User::with('roles')->findOrFail($id);
 
         return response()->json([
             'message' => 'User retrieved successfully',
@@ -184,13 +178,7 @@ class UserController extends Controller
     )]
     public function update(UpdateRequest $request, string $id): JsonResponse
     {
-        $user = User::find($id);
-
-        if (!$user) {
-            return response()->json([
-                'message' => 'User not found'
-            ], 404);
-        }
+        $user = User::findOrFail($id);
 
         $user->update($request->validated());
 
@@ -252,13 +240,7 @@ class UserController extends Controller
     )]
     public function destroy(string $id): JsonResponse
     {
-        $user = User::find($id);
-
-        if (!$user) {
-            return response()->json([
-                'message' => 'User not found'
-            ], 404);
-        }
+        $user = User::findOrFail($id);
 
         $user->delete();
 
