@@ -35,10 +35,10 @@ class UserController extends Controller
     )]
     #[OA\Response(
         response: 401,
-        description: 'Unauthenticated - token required',
+        description: 'Unauthenticated',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated - token required')
+                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.')
             ]
         )
     )]
@@ -47,7 +47,7 @@ class UserController extends Controller
         description: 'Forbidden - admin access required',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - admin access required')
+                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.')
             ]
         )
     )]
@@ -89,10 +89,10 @@ class UserController extends Controller
     )]
     #[OA\Response(
         response: 401,
-        description: 'Unauthenticated - token required',
+        description: 'Unauthenticated',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated - token required')
+                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.')
             ]
         )
     )]
@@ -101,7 +101,7 @@ class UserController extends Controller
         description: 'Forbidden - admin access required',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - admin access required')
+                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.')
             ]
         )
     )]
@@ -160,10 +160,10 @@ class UserController extends Controller
     )]
     #[OA\Response(
         response: 401,
-        description: 'Unauthenticated - token required',
+        description: 'Unauthenticated',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated - token required')
+                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.')
             ]
         )
     )]
@@ -172,7 +172,7 @@ class UserController extends Controller
         description: 'Forbidden - admin access required',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - admin access required')
+                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.')
             ]
         )
     )]
@@ -222,10 +222,10 @@ class UserController extends Controller
     )]
     #[OA\Response(
         response: 401,
-        description: 'Unauthenticated - token required',
+        description: 'Unauthenticated',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated - token required')
+                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.')
             ]
         )
     )]
@@ -234,7 +234,7 @@ class UserController extends Controller
         description: 'Forbidden - admin access required',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - admin access required')
+                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.')
             ]
         )
     )]
