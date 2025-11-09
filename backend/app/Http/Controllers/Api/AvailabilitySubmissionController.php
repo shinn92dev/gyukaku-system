@@ -61,6 +61,29 @@ class AvailabilitySubmissionController extends Controller
         summary: 'Submit availability',
         security: [['bearerAuth' => []]]
     )]
+    #[OA\RequestBody(
+        required: true,
+        content: new OA\JsonContent(
+            required: ['start_date', 'end_date', 'availabilities'],
+            properties: [
+                new OA\Property(property: 'start_date', type: 'string', format: 'date', example: '2025-01-15'),
+                new OA\Property(property: 'end_date', type: 'string', format: 'date', example: '2025-01-29'),
+                new OA\Property(property: 'special_requests', type: 'string', nullable: true, example: 'I can work until 11pm on weekdays'),
+                new OA\Property(
+                    property: 'availabilities',
+                    type: 'array',
+                    items: new OA\Items(
+                        properties: [
+                            new OA\Property(property: 'work_date', type: 'string', format: 'date', example: '2025-01-15'),
+                            new OA\Property(property: 'lunch', type: 'boolean', example: true),
+                            new OA\Property(property: 'dinner', type: 'boolean', example: false),
+                        ],
+                        type: 'object'
+                    )
+                ),
+            ]
+        )
+    )]
     #[OA\Response(
         response: 201,
         description: 'Availability submission created successfully',
@@ -156,7 +179,7 @@ class AvailabilitySubmissionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    #[OA\Put(
+    #[OA\Patch(
         path: '/availability-submissions/{id}',
         tags: ['Availability Submissions'],
         summary: 'Update an availability submission',
@@ -168,6 +191,29 @@ class AvailabilitySubmissionController extends Controller
         required: true,
         description: 'Availability submission ID',
         schema: new OA\Schema(type: 'integer')
+    )]
+    #[OA\RequestBody(
+        required: true,
+        content: new OA\JsonContent(
+            properties: [
+                new OA\Property(property: 'start_date', type: 'string', format: 'date', example: '2025-01-15'),
+                new OA\Property(property: 'end_date', type: 'string', format: 'date', example: '2025-01-29'),
+                new OA\Property(property: 'special_requests', type: 'string', nullable: true, example: 'I can work until 11pm on weekdays'),
+                new OA\Property(
+                    property: 'availabilities',
+                    type: 'array',
+                    items: new OA\Items(
+                        required: ['id'],
+                        properties: [
+                            new OA\Property(property: 'id', type: 'integer', example: 1),
+                            new OA\Property(property: 'lunch', type: 'boolean', example: true),
+                            new OA\Property(property: 'dinner', type: 'boolean', example: false),
+                        ],
+                        type: 'object'
+                    )
+                ),
+            ]
+        )
     )]
     #[OA\Response(
         response: 200,
