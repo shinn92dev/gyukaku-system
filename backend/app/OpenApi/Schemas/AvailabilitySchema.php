@@ -6,7 +6,7 @@ use OpenApi\Attributes as OA;
 
 #[OA\Schema(
     schema: 'Availability',
-    properites: [
+    properties: [
         new OA\Property(property: 'id', type: 'integer', example: '1'),
         new OA\Property(property: 'availability_submission_id', type: 'integer', example: 5),
         new OA\Property(property: 'work_date', type: 'string', format: 'date', example: '2025-01-15'),
