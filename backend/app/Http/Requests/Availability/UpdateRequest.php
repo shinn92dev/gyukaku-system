@@ -32,7 +32,9 @@ class UpdateRequest extends FormRequest
         return [
             'start_date' => 'sometimes|date',
             'end_date' => 'sometimes|date',
-            'special_requests' => 'sometimes|string|max:1000',
+            'special_requests' => 'sometimes|nullable|string|max:1000',
+
+            // Availabilities array
             'availabilities' => 'required|array|min:1',
             'availabilities.*.id' => 'required|integer|exists:availabilities,id',
             'availabilities.*.lunch' => 'sometimes|boolean',
