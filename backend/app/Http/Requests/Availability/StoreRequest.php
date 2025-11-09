@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
             'end_date' => 'required|date|after:start_date', // TODO::CHECK validate rules
             'special_requests' => 'nullable|string|max:1000',
             'availabilities' => 'required|array|min:1',
-            'availabilities.*.work_date' => 'required|date|after_or_equal:today',
+            'availabilities.*.work_date' => 'required|date',
             'availabilities.*.lunch' => 'required|boolean',
             'availabilities.*.dinner' => 'required|boolean',
         ];
