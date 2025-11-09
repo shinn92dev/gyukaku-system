@@ -12,6 +12,19 @@ class Availability extends Model
         'availability_submission_id', 'work_date', 'lunch', 'dinner',
     ];
 
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'lunch' => 'boolean',
+            'dinner' => 'boolean',
+        ];
+    }
+
     public function availabilitySubmission(): BelongsTo
     {
         return $this->belongsTo(AvailabilitySubmission::class);
