@@ -268,7 +268,7 @@ class AvailabilitySubmissionController extends Controller
 
             $availability = Availability::findOrFail($availabilityData['id']);
             assert($availability instanceof Availability);
-            
+
             $availability->update([
                 'lunch' => $availabilityData['lunch'],
                 'dinner' => $availabilityData['dinner'],
