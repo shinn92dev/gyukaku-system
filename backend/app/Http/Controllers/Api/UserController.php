@@ -26,10 +26,10 @@ class UserController extends Controller
             properties: [
                 new OA\Property(property: 'message', type: 'string', example: 'Users retrieved successfully'),
                 new OA\Property(
-                    property: 'data', 
-                    type: 'array', 
+                    property: 'data',
+                    type: 'array',
                     items: new OA\Items(ref: '#/components/schemas/User')
-                )
+                ),
             ]
         )
     )]
@@ -38,7 +38,7 @@ class UserController extends Controller
         description: 'Unauthenticated',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.')
+                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.'),
             ]
         )
     )]
@@ -47,7 +47,7 @@ class UserController extends Controller
         description: 'Forbidden - admin access required',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.')
+                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.'),
             ]
         )
     )]
@@ -92,7 +92,7 @@ class UserController extends Controller
         description: 'Unauthenticated',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.')
+                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.'),
             ]
         )
     )]
@@ -101,7 +101,7 @@ class UserController extends Controller
         description: 'Forbidden - admin access required',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.')
+                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.'),
             ]
         )
     )]
@@ -152,9 +152,9 @@ class UserController extends Controller
                     type: 'object',
                     example: [
                         'email' => ['The email has already been taken.'],
-                        'phone_number' => ['The phone number field must be valid.']
+                        'phone_number' => ['The phone number field must be valid.'],
                     ]
-                )
+                ),
             ]
         )
     )]
@@ -163,7 +163,7 @@ class UserController extends Controller
         description: 'Unauthenticated',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.')
+                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.'),
             ]
         )
     )]
@@ -172,7 +172,7 @@ class UserController extends Controller
         description: 'Forbidden - admin access required',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.')
+                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.'),
             ]
         )
     )]
@@ -194,12 +194,12 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      */
     #[OA\Delete(
-        path: '/users/{id}', 
-        tags: ['Users'], 
+        path: '/users/{id}',
+        tags: ['Users'],
         summary: 'Delete the specified user from the database',
         security: [['bearerAuth' => []]]
     )]
-    #[OA\Parameter( 
+    #[OA\Parameter(
         name: 'id',
         in: 'path',
         required: true,
@@ -211,7 +211,7 @@ class UserController extends Controller
         description: 'User successfully deleted from the database',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'User with id 1 deleted successfully')
+                new OA\Property(property: 'message', type: 'string', example: 'User with id 1 deleted successfully'),
             ]
         )
     )]
@@ -225,7 +225,7 @@ class UserController extends Controller
         description: 'Unauthenticated',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.')
+                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.'),
             ]
         )
     )]
@@ -234,7 +234,7 @@ class UserController extends Controller
         description: 'Forbidden - admin access required',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.')
+                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.'),
             ]
         )
     )]

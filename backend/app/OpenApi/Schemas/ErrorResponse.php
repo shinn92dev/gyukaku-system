@@ -12,7 +12,7 @@ use OpenApi\Attributes as OA;
             property: 'message',
             type: 'string',
             example: 'Resource not found'
-        )
+        ),
     ]
 )]
 class ErrorResponse {}

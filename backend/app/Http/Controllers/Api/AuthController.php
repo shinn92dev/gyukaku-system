@@ -110,7 +110,7 @@ class AuthController extends Controller
         description: 'Unauthenticated',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.')
+                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.'),
             ]
         )
     )]
@@ -119,7 +119,7 @@ class AuthController extends Controller
         description: 'Forbidden - admin access required',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.')
+                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.'),
             ]
         )
     )]
@@ -183,7 +183,7 @@ class AuthController extends Controller
         description: 'Unauthenticated',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.')
+                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.'),
             ]
         )
     )]

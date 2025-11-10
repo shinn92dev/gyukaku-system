@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\User;
+use App\Models\AvailabilitySubmission;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -25,6 +25,9 @@ class Availability extends Model
         ];
     }
 
+    /**
+     * @return BelongsTo<AvailabilitySubmission, $this>
+     */
     public function availabilitySubmission(): BelongsTo
     {
         return $this->belongsTo(AvailabilitySubmission::class);

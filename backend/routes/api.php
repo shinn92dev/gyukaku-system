@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     /* Auth */
     Route::post('/register', [AuthController::class, 'register']);
-    
+
     /* Availability Submissions */
     Route::delete('/availability-submissions/{id}', [AvailabilitySubmissionController::class, 'destroy']);
 });

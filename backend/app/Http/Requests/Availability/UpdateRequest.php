@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Availability;
 
-use App\Models\Availability;
 use App\Models\AvailabilitySubmission;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -12,11 +11,12 @@ class UpdateRequest extends FormRequest
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
-    {   
+    {
         if (auth()->user()->is_admin) {
             return true;
         }
 
+        /** @var AvailabilitySubmission $submission */
         $submission = AvailabilitySubmission::findOrFail($this->route('id'));
 
         return $submission->user_id === auth()->id();

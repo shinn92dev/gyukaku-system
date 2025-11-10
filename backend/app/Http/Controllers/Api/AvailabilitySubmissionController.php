@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Availability;
-use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use App\Models\AvailabilitySubmission;
 use App\Http\Requests\Availability\StoreRequest;
 use App\Http\Requests\Availability\UpdateRequest;
+use App\Models\Availability;
+use App\Models\AvailabilitySubmission;
+use Illuminate\Http\JsonResponse;
 use OpenApi\Attributes as OA;
 
 class AvailabilitySubmissionController extends Controller
@@ -27,7 +27,7 @@ class AvailabilitySubmissionController extends Controller
         content: new OA\JsonContent(
             properties: [
                 new OA\Property(property: 'message', type: 'string', example: 'Availability submissions retrieved successfully'),
-                new OA\Property(property: 'data', type: 'array', items: new OA\Items(ref: '#/components/schemas/AvailabilitySubmission'))
+                new OA\Property(property: 'data', type: 'array', items: new OA\Items(ref: '#/components/schemas/AvailabilitySubmission')),
             ]
         )
     )]
@@ -36,14 +36,14 @@ class AvailabilitySubmissionController extends Controller
         description: 'Unauthenticated',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.')
+                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.'),
             ]
         )
     )]
     public function index(): JsonResponse
-    {   
+    {
         $submissions = AvailabilitySubmission::with('availabilities')
-            ->when(!auth()->user()->is_admin, fn($query) => $query->where('user_id', auth()->id()))
+            ->when(!auth()->user()->is_admin, fn ($query) => $query->where('user_id', auth()->id()))
             ->get();
 
         return response()->json([
@@ -90,7 +90,7 @@ class AvailabilitySubmissionController extends Controller
         content: new OA\JsonContent(
             properties: [
                 new OA\Property(property: 'message', type: 'string', example: 'Availability submission created successfully'),
-                new OA\Property(property: 'data', ref: '#/components/schemas/AvailabilitySubmission')
+                new OA\Property(property: 'data', ref: '#/components/schemas/AvailabilitySubmission'),
             ]
         )
     )]
@@ -99,13 +99,13 @@ class AvailabilitySubmissionController extends Controller
         description: 'Unauthenticated',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.')
+                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.'),
             ]
         )
     )]
     public function store(StoreRequest $request): JsonResponse
     {
-        $validated = $request->validated();  
+        $validated = $request->validated();
 
         $submission = AvailabilitySubmission::create([
             'user_id' => auth()->id(),
@@ -144,7 +144,7 @@ class AvailabilitySubmissionController extends Controller
         content: new OA\JsonContent(
             properties: [
                 new OA\Property(property: 'message', type: 'string', example: 'Availability submission retrieved successfully'),
-                new OA\Property(property: 'data', ref: '#/components/schemas/AvailabilitySubmission')
+                new OA\Property(property: 'data', ref: '#/components/schemas/AvailabilitySubmission'),
             ]
         )
     )]
@@ -153,7 +153,7 @@ class AvailabilitySubmissionController extends Controller
         description: 'Unauthenticated',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.')
+                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.'),
             ]
         )
     )]
@@ -162,7 +162,7 @@ class AvailabilitySubmissionController extends Controller
         description: 'Availability submission not found',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Availability submission not found')
+                new OA\Property(property: 'message', type: 'string', example: 'Availability submission not found'),
             ]
         )
     )]
@@ -221,7 +221,7 @@ class AvailabilitySubmissionController extends Controller
         content: new OA\JsonContent(
             properties: [
                 new OA\Property(property: 'message', type: 'string', example: 'Availability submission updated successfully'),
-                new OA\Property(property: 'data', ref: '#/components/schemas/AvailabilitySubmission')
+                new OA\Property(property: 'data', ref: '#/components/schemas/AvailabilitySubmission'),
             ]
         )
     )]
@@ -230,7 +230,7 @@ class AvailabilitySubmissionController extends Controller
         description: 'Unauthenticated',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.')
+                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.'),
             ]
         )
     )]
@@ -239,7 +239,7 @@ class AvailabilitySubmissionController extends Controller
         description: 'Forbidden - User does not own this submission (may also return "Forbidden - Admin access required." if admin middleware is applied)',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'This action is unauthorized.')
+                new OA\Property(property: 'message', type: 'string', example: 'This action is unauthorized.'),
             ]
         )
     )]
@@ -248,7 +248,7 @@ class AvailabilitySubmissionController extends Controller
         description: 'Availability submission not found',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Availability submission not found')
+                new OA\Property(property: 'message', type: 'string', example: 'Availability submission not found'),
             ]
         )
     )]
@@ -264,8 +264,11 @@ class AvailabilitySubmissionController extends Controller
             'special_requests' => $validated['special_requests'],
         ]);
 
-        foreach($validated['availabilities'] as $availabilityData) {
+        foreach ($validated['availabilities'] as $availabilityData) {
+
             $availability = Availability::findOrFail($availabilityData['id']);
+            assert($availability instanceof Availability);
+            
             $availability->update([
                 'lunch' => $availabilityData['lunch'],
                 'dinner' => $availabilityData['dinner'],
@@ -299,7 +302,7 @@ class AvailabilitySubmissionController extends Controller
         description: 'Availability submission deleted successfully',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Availability submission deleted successfully')
+                new OA\Property(property: 'message', type: 'string', example: 'Availability submission deleted successfully'),
             ]
         )
     )]
@@ -308,7 +311,7 @@ class AvailabilitySubmissionController extends Controller
         description: 'Unauthenticated',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.')
+                new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.'),
             ]
         )
     )]
@@ -317,7 +320,7 @@ class AvailabilitySubmissionController extends Controller
         description: 'Forbidden - admin access required',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.')
+                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.'),
             ]
         )
     )]
@@ -326,7 +329,7 @@ class AvailabilitySubmissionController extends Controller
         description: 'Availability submission not found',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Availability submission not found')
+                new OA\Property(property: 'message', type: 'string', example: 'Availability submission not found'),
             ]
         )
     )]
