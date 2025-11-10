@@ -107,7 +107,7 @@ class AuthController extends Controller
     )]
     #[OA\Response(
         response: 401,
-        description: 'Unauthorized - authentication required',
+        description: 'Unauthenticated',
         content: new OA\JsonContent(
             properties: [
                 new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.'),
@@ -116,12 +116,12 @@ class AuthController extends Controller
     )]
     #[OA\Response(
         response: 403,
-        description: 'Restricted access - only for admins',
+        description: 'Forbidden - admin access required',
         content: new OA\JsonContent(
             properties: [
                 new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.'),
-            ],
-        ),
+            ]
+        )
     )]
     #[OA\Response(
         response: 422,
@@ -180,7 +180,7 @@ class AuthController extends Controller
     )]
     #[OA\Response(
         response: 401,
-        description: 'Unauthenticated - no valid token provided',
+        description: 'Unauthenticated',
         content: new OA\JsonContent(
             properties: [
                 new OA\Property(property: 'message', type: 'string', example: 'Unauthenticated.'),
