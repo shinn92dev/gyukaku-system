@@ -236,7 +236,7 @@ class AvailabilitySubmissionController extends Controller
     )]
     #[OA\Response(
         response: 403,
-        description: 'Forbidden - User does not own this submission (may also return "Forbidden - Admin access required." if admin middleware is applied)',
+        description: 'Forbidden - Admin access required',
         content: new OA\JsonContent(
             properties: [
                 new OA\Property(property: 'message', type: 'string', example: 'This action is unauthorized.'),
@@ -317,10 +317,10 @@ class AvailabilitySubmissionController extends Controller
     )]
     #[OA\Response(
         response: 403,
-        description: 'Forbidden - admin access required',
+        description: 'Forbidden - Admin access required',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.'),
+                new OA\Property(property: 'message', type: 'string', example: 'This action is unauthorized.'),
             ]
         )
     )]
