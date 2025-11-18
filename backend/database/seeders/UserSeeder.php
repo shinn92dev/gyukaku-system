@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Arr;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -12,13 +13,24 @@ class UserSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {
-        $managerRole = Role::where('code', 'mgr')->first();
-        // $supervisorRole = Role::where('code', 'sup')->first();
-        $serverRole = Role::where('code', 'srv')->first();
-        // $kitchenRole = Role::where('code', 'ktc')->first();
-        // $dishwasherRole = Role::where('code', 'dsh')->first();
-        $hostRole = Role::where('code', 'hst')->first();
+    {   
+        $EMPLOYEES = [
+            'server' => 15,
+            'host' => 5,
+            'kitchen' => 10,
+            'dishwasher' => 5,
+        ];
+
+        $adminRole = Role::where('code', 'mgr')->first();
+
+        $rolesMap = [
+            // 'supervisor' => Role::where('code', 'sup')->first(),
+            'server' => Role::where('code', 'srv')->first(),
+            'kitchen' => Role::where('code', 'ktc')->first(),
+            'dishwasher' => Role::where('code', 'dsh')->first(),
+            'host' => Role::where('code', 'hst')->first(),
+        ];
+        
 
         // admin
         $admin = User::firstOrCreate(
@@ -27,7 +39,7 @@ class UserSeeder extends Seeder
                 'username' => 'admin',
                 'password' => 'password',
                 'first_name' => 'Admin',
-                'last_name' => 'User',
+                'last_name' => 'Admin',
                 'phone_number' => '090-0000-0001',
                 'date_of_birth' => '1990-01-01',
                 'hire_date' => now()->subYears(5),
@@ -35,23 +47,16 @@ class UserSeeder extends Seeder
                 'is_active' => true,
             ]
         );
-        $admin->roles()->syncWithoutDetaching([$managerRole->id]);
+        $admin->roles()->syncWithoutDetaching($adminRole->id);
 
-        // Server/Host (dual role)
-        $server = User::firstOrCreate(
-            ['email' => 'server@gyukaku.com'],
-            [
-                'username' => 'server1',
-                'password' => 'password',
-                'first_name' => 'John',
-                'last_name' => 'Doe',
-                'phone_number' => '090-0000-0003',
-                'date_of_birth' => '2000-08-20',
-                'hire_date' => now()->subYear(),
-                'is_admin' => false,
-                'is_active' => true,
-            ]
-        );
-        $server->roles()->syncWithoutDetaching([$serverRole->id, $hostRole->id]);
+        foreach ($EMPLOYEES as $role => $count) {
+            $this->createEmployees($rolesMap[$role], $count);
+        }
+    }
+
+    private function createEmployees(Role $role, int $count): void
+    {
+        $users = User::factory()->count($count)->create();
+        $role->users()->attach($users->pluck('id'));
     }
 }

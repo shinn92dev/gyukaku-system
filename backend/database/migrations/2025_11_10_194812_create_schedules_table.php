@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->date('work_date');
-            $table->enum('type', ['foh', 'boh', 'mgr']);
+            $table->enum('type', ['foh', 'boh']);
             $table->boolean('is_understaffed')->default(false);
             $table->timestamps();
         });

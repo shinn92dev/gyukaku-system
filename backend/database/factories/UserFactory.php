@@ -22,23 +22,21 @@ class UserFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition(): array
-    {
-        return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
-        ];
-    }
+    {  
+        $phoneNumber = fake()->numerify('###-###-####');
+        $username = 'VC' . explode('-', $phoneNumber)[2];
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        return [
+            'email' => fake()->unique()->safeEmail(),
+            'username' => $username,
+            'password' => static::$password ??= Hash::make('password'),
+            'first_name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
+            'phone_number' => $phoneNumber,
+            'date_of_birth' => fake()->date('Y-m-d', '-18 years'),
+            'hire_date' => fake()->dateTimeThisYear()->format('Y-m-d'),
+            'is_admin' => false,
+            'is_active' => true,
+        ];
     }
 }
