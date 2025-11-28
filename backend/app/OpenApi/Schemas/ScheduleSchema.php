@@ -8,6 +8,7 @@ use OpenApi\Attributes as OA;
     schema: 'Schedule',
     properties: [
         new OA\Property(property: 'id', type: 'integer', example: 1),
+        new OA\Property(property: 'schedule_period_id', type: 'integer', example: 1),
         new OA\Property(property: 'work_date', type: 'string', format: 'date', example: '2025-01-15'),
         new OA\Property(property: 'type', type: 'string', enum: ['foh', 'boh', 'mgr'], example: 'foh'),
         new OA\Property(property: 'is_understaffed', type: 'boolean', example: true),
