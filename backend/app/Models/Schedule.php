@@ -3,11 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property \Illuminate\Support\Carbon $work_date
+ */
 class Schedule extends Model
 {
     protected $fillable = [
+        'schedule_period_id',
         'work_date',
         'type',
         'is_understaffed',
@@ -24,6 +29,14 @@ class Schedule extends Model
             'work_date' => 'date',
             'is_understaffed' => 'boolean',
         ];
+    }
+
+    /**
+     * @return BelongsTo<SchedulePeriod, $this>
+     */
+    public function schedulePeriod(): BelongsTo
+    {
+        return $this->belongsTo(SchedulePeriod::class);
     }
 
     /**
