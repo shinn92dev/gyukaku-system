@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Support\Arr;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -13,7 +12,7 @@ class UserSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {   
+    {
         $EMPLOYEES = [
             'server' => 15,
             'host' => 5,
@@ -22,6 +21,8 @@ class UserSeeder extends Seeder
         ];
 
         $adminRole = Role::where('code', 'mgr')->first();
+        $serverRole = Role::where('code', 'srv')->first();
+        $hostRole = Role::where('code', 'hst')->first();
 
         $rolesMap = [
             // 'supervisor' => Role::where('code', 'sup')->first(),
@@ -30,7 +31,6 @@ class UserSeeder extends Seeder
             'dishwasher' => Role::where('code', 'dsh')->first(),
             'host' => Role::where('code', 'hst')->first(),
         ];
-        
 
         // admin
         $admin = User::firstOrCreate(
@@ -48,6 +48,23 @@ class UserSeeder extends Seeder
             ]
         );
         $admin->roles()->syncWithoutDetaching($adminRole->id);
+
+        // foh employee
+        $fohEmployee = User::firstOrCreate(
+            ['email' => 'jesus@gyukaku.com'],
+            [
+                'username' => 'jesus',
+                'password' => 'password',
+                'first_name' => 'jesus',
+                'last_name' => 'christ',
+                'phone_number' => '090-0000-0002',
+                'date_of_birth' => '1990-01-01',
+                'hire_date' => now()->subYears(5),
+                'is_admin' => false,
+                'is_active' => true,
+            ]
+        );
+        $fohEmployee->roles()->syncWithoutDetaching([$serverRole->id, $hostRole->id]);
 
         foreach ($EMPLOYEES as $role => $count) {
             $this->createEmployees($rolesMap[$role], $count);
