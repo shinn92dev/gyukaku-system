@@ -25,7 +25,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/availability-submissions', [AvailabilitySubmissionController::class, 'store']);
     Route::patch('/availability-submissions/{id}', [AvailabilitySubmissionController::class, 'update']);
 
+    /* Schedule Periods */
+    Route::get('/schedule-periods', [ScheduleController::class, 'schedulePeriods']);
+    Route::get('/schedules/current', [ScheduleController::class, 'currentPeriod']);
+
     /* Schedule */
+    Route::get('/schedules/today', [ScheduleController::class, 'today']);
+    Route::get('/schedules/range', [ScheduleController::class, 'getByDateRange']);
     Route::get('/schedules/{id}', [ScheduleController::class, 'show']);
 
     /* Shifts */
@@ -41,12 +47,14 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     /* Availability Submissions */
     Route::delete('/availability-submissions/{id}', [AvailabilitySubmissionController::class, 'destroy']);
 
+    /* Schedule Periods */
+    Route::post('/schedules/new-period', [ScheduleController::class, 'createNewPeriod']);
+
     /* Schedules */
     Route::get('/schedules', [ScheduleController::class, 'index']);
     Route::post('/schedules', [ScheduleController::class, 'store']);
     Route::patch('/schedules/{id}', [ScheduleController::class, 'update']);
     Route::delete('/schedules/{id}', [ScheduleController::class, 'destroy']);
-
 
     /* Shifts */
     Route::post('/shifts/{userId}/clock/{action}', [ShiftController::class, 'clockActionForUser'])
