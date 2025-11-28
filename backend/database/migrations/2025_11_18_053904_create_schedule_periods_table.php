@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schedules', function (Blueprint $table) {
+        Schema::create('schedule_periods', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('schedule_period_id');
-            $table->date('work_date');
-            $table->enum('type', ['foh', 'boh']);
-            $table->boolean('is_understaffed')->default(false);
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->boolean('is_current');
+            $table->boolean('is_published')->default(false);
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('schedules');
+        Schema::dropIfExists('schedule_periods');
     }
 };
