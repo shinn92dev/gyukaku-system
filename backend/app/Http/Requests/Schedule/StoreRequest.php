@@ -27,6 +27,7 @@ class StoreRequest extends FormRequest
             'is_understaffed' => 'sometimes|boolean',
             'shifts' => 'required|array|min:1',
             'shifts.*.user_id' => 'required|integer|exists:users,id',
+            'shifts.*.work_date' => 'required|date',
             'shifts.*.shift_start_time' => 'required|date_format:Y-m-d H:i:s',
         ];
     }
