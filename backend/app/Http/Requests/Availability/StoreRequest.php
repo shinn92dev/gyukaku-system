@@ -22,8 +22,8 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after:start_date', // TODO::CHECK validate rules
+            'start_date' => 'required|date|before:end_date',
+            'end_date' => 'required|date|after:start_date',
             'special_requests' => 'nullable|string|max:1000',
             'availabilities' => 'required|array|min:1',
             'availabilities.*.work_date' => 'required|date',
