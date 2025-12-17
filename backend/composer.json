@@ -79,7 +79,11 @@
         "format": "vendor/bin/pint -v",
         "format:check": "vendor/bin/pint --test",
         "lint": "vendor/bin/phpstan analyse --memory-limit=1G",
-        "pint": "pint"
+        "pint": "pint",
+        "check": [
+            "@format",
+            "@lint"
+        ]
     },
     "extra": {
         "laravel": {
