@@ -258,21 +258,18 @@ class AvailabilitySubmissionController extends Controller
 
         $validated = $request->validated();
 
-        $submission->update([
-            'start_date' => $validated['start_date'],
-            'end_date' => $validated['end_date'],
-            'special_requests' => $validated['special_requests'],
-        ]);
+        $submission->fill($validated)->save();
 
-        foreach ($validated['availabilities'] as $availabilityData) {
+        if (isset($validated['availabilities'])) {
+            foreach ($validated['availabilities'] as $availabilityData) {
+                $availability = Availability::findOrFail($availabilityData['id']);
+                assert($availability instanceof Availability);
 
-            $availability = Availability::findOrFail($availabilityData['id']);
-            assert($availability instanceof Availability);
-
-            $availability->update([
-                'lunch' => $availabilityData['lunch'],
-                'dinner' => $availabilityData['dinner'],
-            ]);
+                $availability->update([
+                    'lunch' => $availabilityData['lunch'],
+                    'dinner' => $availabilityData['dinner'],
+                ]);
+            }
         }
 
         return response()->json([
