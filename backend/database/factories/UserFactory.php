@@ -23,11 +23,10 @@ class UserFactory extends Factory
     public function definition(): array
     {
         $phoneNumber = fake()->numerify('###-###-####');
-        $username = 'VC' . explode('-', $phoneNumber)[2];
 
         return [
             'email' => fake()->unique()->safeEmail(),
-            'username' => $username,
+            'username' => fake()->unique()->numerify('VC####'),
             'password' => static::$password ??= Hash::make('password'),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
