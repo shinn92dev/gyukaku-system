@@ -236,7 +236,7 @@ class AvailabilitySubmissionController extends Controller
     )]
     #[OA\Response(
         response: 403,
-        description: 'Forbidden - User does not own this submission (may also return "Forbidden - Admin access required." if admin middleware is applied)',
+        description: 'Forbidden - Admin access required',
         content: new OA\JsonContent(
             properties: [
                 new OA\Property(property: 'message', type: 'string', example: 'This action is unauthorized.'),
@@ -258,21 +258,18 @@ class AvailabilitySubmissionController extends Controller
 
         $validated = $request->validated();
 
-        $submission->update([
-            'start_date' => $validated['start_date'],
-            'end_date' => $validated['end_date'],
-            'special_requests' => $validated['special_requests'],
-        ]);
+        $submission->fill($validated)->save();
 
-        foreach ($validated['availabilities'] as $availabilityData) {
+        if (isset($validated['availabilities'])) {
+            foreach ($validated['availabilities'] as $availabilityData) {
+                $availability = Availability::findOrFail($availabilityData['id']);
+                assert($availability instanceof Availability);
 
-            $availability = Availability::findOrFail($availabilityData['id']);
-            assert($availability instanceof Availability);
-
-            $availability->update([
-                'lunch' => $availabilityData['lunch'],
-                'dinner' => $availabilityData['dinner'],
-            ]);
+                $availability->update([
+                    'lunch' => $availabilityData['lunch'],
+                    'dinner' => $availabilityData['dinner'],
+                ]);
+            }
         }
 
         return response()->json([
@@ -317,10 +314,10 @@ class AvailabilitySubmissionController extends Controller
     )]
     #[OA\Response(
         response: 403,
-        description: 'Forbidden - admin access required',
+        description: 'Forbidden - Admin access required',
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: 'message', type: 'string', example: 'Forbidden - Admin access required.'),
+                new OA\Property(property: 'message', type: 'string', example: 'This action is unauthorized.'),
             ]
         )
     )]

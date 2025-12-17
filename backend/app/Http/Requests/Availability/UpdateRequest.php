@@ -29,13 +29,34 @@ class UpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        /** @var AvailabilitySubmission|null $submission */
+        $submission = AvailabilitySubmission::find($this->route('id'));
+
         return [
-            'start_date' => 'sometimes|date',
-            'end_date' => 'sometimes|date',
+            'start_date' => [
+                'sometimes',
+                'date',
+                function ($attribute, $value, $fail) use ($submission) {
+                    $endDate = $this->input('end_date', $submission?->end_date);
+                    if ($endDate && $value >= $endDate) {
+                        $fail('The start date must be before the end date.');
+                    }
+                },
+            ],
+            'end_date' => [
+                'sometimes',
+                'date',
+                function ($attribute, $value, $fail) use ($submission) {
+                    $startDate = $this->input('start_date', $submission?->start_date);
+                    if ($startDate && $value <= $startDate) {
+                        $fail('The end date must be after the start date.');
+                    }
+                },
+            ],
             'special_requests' => 'sometimes|nullable|string|max:1000',
 
             // Availabilities array
-            'availabilities' => 'required|array|min:1',
+            'availabilities' => 'sometimes|array',
             'availabilities.*.id' => 'required|integer|exists:availabilities,id',
             'availabilities.*.lunch' => 'sometimes|boolean',
             'availabilities.*.dinner' => 'sometimes|boolean',
