@@ -196,7 +196,13 @@ class ScheduleController extends Controller
     )]
     public function show(string $id): JsonResponse
     {
-        $schedule = Schedule::with('shifts')->findOrFail($id);
+        $schedule = Schedule::with('shifts')->find($id);
+
+        if (!$schedule) {
+            return response()->json([
+                'message' => 'Schedule not found',
+            ], 404);
+        }
 
         return response()->json([
             'message' => 'Schedule with shifts retrieved successfully',
@@ -613,12 +619,6 @@ class ScheduleController extends Controller
             $validated['start_date'],
             $validated['end_date'],
         ])->with('shifts.user')->get();
-
-        if ($schedules->isEmpty()) {
-            return response()->json([
-                'message' => 'No schedules found within the specified range',
-            ], 404);
-        }
 
         return response()->json([
             'message' => 'Schedules retrieved successfully',
