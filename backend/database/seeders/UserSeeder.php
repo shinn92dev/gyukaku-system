@@ -53,10 +53,10 @@ class UserSeeder extends Seeder
         $fohEmployee = User::firstOrCreate(
             ['email' => 'jesus@gyukaku.com'],
             [
-                'username' => 'jesus',
+                'username' => 'employee',
                 'password' => 'password',
-                'first_name' => 'jesus',
-                'last_name' => 'christ',
+                'first_name' => 'Doctor',
+                'last_name' => 'Strange',
                 'phone_number' => '090-0000-0002',
                 'date_of_birth' => '1990-01-01',
                 'hire_date' => now()->subYears(5),
