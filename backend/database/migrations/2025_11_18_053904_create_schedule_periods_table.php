@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('availability_submissions', function (Blueprint $table) {
+        Schema::create('schedule_periods', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('special_requests')->nullable();
+            $table->boolean('is_current')->default(false);
+            $table->boolean('is_published')->default(false);
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('availability_submissions');
+        Schema::dropIfExists('schedule_periods');
     }
 };
