@@ -15,7 +15,7 @@ Live API: https://backend-zugn.onrender.com/swagger
 ## Quick Start
 
 1. Go to [API Documentation](https://backend-zugn.onrender.com/swagger)
-2. Click on `/api/login` endpoint
+2. Click on `/authentication/login` endpoint
 3. Click "Try it out"
 4. Use demo credentials above
 5. Copy the token from response
